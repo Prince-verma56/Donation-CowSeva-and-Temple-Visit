@@ -19,7 +19,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const SECTION_BACKGROUND_IMAGE_PATH = "/Images/Backgrounds/PastelBg.png";
+const SECTION_BACKGROUND_IMAGE_PATH = "/Images/Backgrounds/ModernWhiteD.jpg";
 const DEFAULT_PAGE_BACKGROUND_COLOR ="bg-gradient-to-b from-cyan-50 to-teal-100 Backdrop-blur-[1px]"
   // "bg-cyan-100 bg-linear-to-br from-cyan-50 via-sky-50 to-teal-50 ";
 
@@ -132,7 +132,7 @@ export function DonationCardsSection() {
               src={SECTION_BACKGROUND_IMAGE_PATH}
               alt="Subtle traditional Indian pattern background for donation section"
               fill
-              quality={80}
+              
               className="object-cover opacity-90"
             />
           </div>

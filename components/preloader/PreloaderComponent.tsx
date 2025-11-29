@@ -23,7 +23,7 @@ export function PreloaderComponent() {
     // Fallback: if video doesn't end in 15 seconds, force exit
     const fallbackTimeout = setTimeout(() => {
       setIsVisible(false);
-    }, 15000);
+    }, 20000);
 
     // Try to play video
     video.play().catch((err) => {

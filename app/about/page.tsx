@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { ShlokaSection } from "@/components/sections/ShlokaSection";
 
 // --- Static Data ---
 const aboutContent = {
@@ -92,6 +93,7 @@ export default function AboutPage() {
                   width={1200}
                   height={800}
                   priority={false}
+                  loading="eager"
                   className="w-full h-full object-cover object-center 
                transition-transform duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] 
                group-hover:scale-[1.04]"
@@ -103,7 +105,7 @@ export default function AboutPage() {
                 <div className="flex -space-x-2 mb-2">
                   <div className="relative w-8 h-8 rounded-full border-2 border-white overflow-hidden">
                     <Image
-                      src="/Images/Avatars/p1.jpg"
+                      src="/Images/Avatars/P1.png"
                       alt="Donor profile 1"
                       fill
                       sizes="32px"
@@ -113,7 +115,7 @@ export default function AboutPage() {
                   </div>
                   <div className="relative w-8 h-8 rounded-full border-2 border-white overflow-hidden">
                     <Image
-                      src="/Images/Avatars/p2.jpg"
+                      src="/Images/Avatars/P2.png"
                       alt="Donor profile 2"
                       fill
                       sizes="32px"
@@ -123,7 +125,7 @@ export default function AboutPage() {
                   </div>
                   <div className="relative w-8 h-8 rounded-full border-2 border-white overflow-hidden">
                     <Image
-                      src="/Images/Avatars/p3.jpg"
+                      src="/Images/Avatars/P3.png"
                       alt="Donor profile 3"
                       fill
                       sizes="32px"
@@ -149,8 +151,8 @@ export default function AboutPage() {
                   className={`${aboutContent.headingStyle} text-gray-900 mb-6`}
                   style={{ fontFamily: "Qasira" }}
                 >
-                  {/* {aboutContent.title} */}
-                  Where <span className="text-[#963F15]">Every Act</span>   of Kindness Becomes Life
+                  Where <span className="text-[#963F15]">Every Act</span> of
+                  Kindness Becomes Life
                 </h2>
               </motion.div>
 
@@ -177,7 +179,10 @@ export default function AboutPage() {
                     <Card className="border border-amber-50/70 bg-white/90 shadow-sm hover:shadow-lg transition-shadow duration-300 h-full rounded-2xl">
                       <CardContent className="p-6">
                         <div className="p-3 bg-amber-100 text-amber-700 rounded-xl inline-flex mb-3">
-                          <value.icon className="w-6 h-6" aria-hidden="true" />
+                          <value.icon
+                            className="w-6 h-6"
+                            aria-hidden="true"
+                          />
                         </div>
                         <h3 className="text-lg font-semibold text-gray-800 mb-1">
                           {value.title}
@@ -195,8 +200,6 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* Second Section  */}
-
       {/* SECTION 2 */}
       <motion.section
         id="about-gaushala"
@@ -209,7 +212,7 @@ export default function AboutPage() {
       >
         <div className="container max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* LEFT: content now */}
+            {/* LEFT: content */}
             <motion.div
               className="space-y-6 lg:space-y-8"
               variants={itemVariants}
@@ -223,7 +226,8 @@ export default function AboutPage() {
                 className="text-3xl md:text-4xl lg:text-5xl text-slate-900 leading-tight"
                 style={{ fontFamily: "Qasira" }}
               >
-                Where Seva Becomes <span className="text-[#963F15]">Shelter</span> for Every Cow.
+                Where Seva Becomes{" "}
+                <span className="text-[#963F15]">Shelter</span> for Every Cow.
               </h2>
 
               <p className="text-sm md:text-base text-slate-600 max-w-xl">
@@ -255,7 +259,7 @@ export default function AboutPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-none shadow-sm bg-white/90 rounded-2xl shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)]" >
+                <Card className="border-none shadow-sm bg-white/90 rounded-2xl shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)]">
                   <CardContent className="p-4 md:p-5 flex flex-col gap-1">
                     <span className="inline-flex items-center gap-1 text-2xl md:text-3xl font-semibold text-[#963F15]">
                       2.5k+
@@ -269,7 +273,7 @@ export default function AboutPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-none shadow-sm bg-white/90 rounded-2xl md:col-span-1 col-span-2 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)]">
+                <Card className="border-none bg-white/90 rounded-2xl md:col-span-1 col-span-2 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)]">
                   <CardContent className="p-4 md:p-5 flex flex-col gap-1">
                     <span className="inline-flex items-center gap-1 text-2xl md:text-3xl font-semibold text-[#963F15]">
                       4+
@@ -285,7 +289,7 @@ export default function AboutPage() {
               </div>
 
               <div className="pt-2">
-               <Link href="/know-about-us" className="w-full sm:w-auto">
+                <Link href="/know-about-us" className="w-full sm:w-auto">
                   <InteractiveHoverButton
                     className="w-full sm:w-auto bg-linear-to-r from-amber-500 to-[#f6d550] hover:from-orange-500 hover:to-red-600 text-white font-bold px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-base shadow-xl hover:shadow-2xl transition-all duration-300 border-none rounded-full uppercase tracking-wide backdrop-blur-sm"
                   >
@@ -295,7 +299,7 @@ export default function AboutPage() {
               </div>
             </motion.div>
 
-            {/* RIGHT: orbit image now */}
+            {/* RIGHT: orbit image */}
             <motion.div
               className="relative flex items-center justify-center pointer-events-none"
               variants={itemVariants}
@@ -326,8 +330,6 @@ export default function AboutPage() {
                   aria-hidden="true"
                 />
 
-
-
                 {/* dots */}
                 <span
                   className="pointer-events-none absolute left-[14%] top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-emerald-500"
@@ -347,6 +349,12 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
+      {/* SECTION 3 – SHLOKA SECTION (separate, single container) */}
+      <section className="relative py-16 md:py-20 bg-[#edf6f9]">
+        <main className="container mx-auto px-4 md:px-6 mt-4 md:mt-8">
+          <ShlokaSection eager />
+        </main>
+      </section>
     </>
   );
 }

@@ -6,7 +6,7 @@ import { motion, cubicBezier } from 'framer-motion';
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 import { usePreloader } from "@/hooks/usePreloader";
 import { SmallStatsCard } from '@/components/cards/SmallStatsCard';
-import { Heart, Users } from 'lucide-react'; 
+import { Heart, Users } from 'lucide-react';
 import { Button } from '../ui/button';
 
 // --- ANIMATION VARIANTS (KEPT UNCHANGED) ---
@@ -34,7 +34,7 @@ const statsData = [
     { icon: <Heart className="w-full h-full" />, label: 'Lives Saved', value: 2500, suffix: '+' },
     { icon: <Users className="w-full h-full" />, label: 'Active Donors', value: 500, suffix: 'K+' },
     // Replicating stats data to get 4 cards for the 2x2 mobile grid
-    { icon: <Heart className="w-full h-full" />, label: 'Shelters Built', value: 3500, suffix: '+' }, 
+    { icon: <Heart className="w-full h-full" />, label: 'Shelters Built', value: 3500, suffix: '+' },
     { icon: <Users className="w-full h-full" />, label: 'Volunteers', value: 500, suffix: 'K+' },
 ];
 
@@ -48,7 +48,7 @@ const MobileStatCard = ({ icon, label, value, suffix, index }: MobileStatProps) 
         <div className="w-8 h-8 mb-2 text-white/80">{icon}</div>
         <p className="text-xl font-bold leading-tight">{value}{suffix}</p>
         <p className="text-sm font-medium opacity-80 uppercase">{label}</p>
-        <div className="w-1/3 h-0.5 bg-slate-400 mt-2 rounded-full"></div> 
+        <div className="w-1/3 h-0.5 bg-slate-400 mt-2 rounded-full"></div>
     </motion.div>
 );
 
@@ -58,7 +58,7 @@ export function HeroSection() {
 
     return (
         <section className="relative w-full min-h-screen overflow-hidden rounded-b-4xl">
-            
+
             {/* Background Image (KEPT UNCHANGED) */}
             <div className="absolute inset-0 z-0 w-full h-full ">
                 <Image
@@ -67,9 +67,9 @@ export function HeroSection() {
                     fill
                     sizes="100vw"
                     className="object-cover object-[50%_35%] md:object-center"
-                    quality={90}
                     priority
                 />
+
             </div>
 
             {/* Dark Overlay - FIX: Left-to-Right Gradient on ALL screens */}
@@ -84,11 +84,11 @@ export function HeroSection() {
 
             {/* Hero Content Container */}
             <div className="relative z-20 w-full min-h-screen flex flex-col justify-center pt-10 pb-6 sm:p-10 lg:p-16">
-                
+
                 {/* --- DESKTOP VIEW (Visible on sm and up) --- (KEPT UNCHANGED) */}
                 <div className="w-full max-w-7xl mx-auto hidden sm:block">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                        
+
                         {/* Left Content (Desktop) */}
                         <motion.div
                             className="col-span-1 lg:col-span-6 text-white space-y-4 sm:space-y-6"
@@ -162,7 +162,7 @@ export function HeroSection() {
                         </motion.div>
                     </div>
                 </div>
-                
+
                 {/* ------------------------------------------------------------------ */}
                 {/* --- MOBILE VIEW (Improved Responsiveness) --- */}
                 {/* ------------------------------------------------------------------ */}
@@ -174,10 +174,10 @@ export function HeroSection() {
                         initial="hidden"
                         animate={isPreloaderComplete ? "visible" : "hidden"}
                     >
-                        
+
                         {/* Hero Title & Subtitle - Text Area for better responsiveness */}
                         <div className="w-full max-w-sm text-left">
-                            <motion.div className="space-y-1 mb-8" variants={itemVariants}> 
+                            <motion.div className="space-y-1 mb-8" variants={itemVariants}>
                                 <h1 className="text-[40px] leading-tight font-extrabold" style={{ fontFamily: 'Qasira' }}>
                                     Save Injured &amp; Sick
                                 </h1>
@@ -198,7 +198,7 @@ export function HeroSection() {
                                 They need your help. Accident victims, sick &amp; acid-attacked cows need urgent care and shelter.
                             </motion.p>
                         </div>
-                        
+
                         {/* CTA Buttons - Full width within a constrained container */}
                         <motion.div className="w-full max-w-sm space-y-4 mb-12" variants={containerVariants}>
                             <motion.div variants={itemVariants}>
@@ -243,7 +243,7 @@ export function HeroSection() {
 
                     </motion.div>
                 </div>
-                
+
             </div>
         </section>
     );

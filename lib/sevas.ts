@@ -12,7 +12,7 @@ export type Seva = {
 export const SEVAS: Seva[] = [
   {
     id: "s1",
-    name: "Feed a Cow",
+    name: "Seva Bhav",
     desc: "Provide nutritious food and daily care, essential for their well-being and recovery.",
     amount: 499,
     image: "/Images/DonationCardsImg/FirstRoti.png",
@@ -21,7 +21,7 @@ export const SEVAS: Seva[] = [
   },
   {
     id: "s2",
-    name: "Medical Care",
+    name: "Shelter Care",
     desc: "Fund emergency treatments, necessary surgeries, and ongoing medication for sick cows.",
     amount: 999,
     image: "/Images/DonationCardsImg/CowsShed.png",
@@ -30,7 +30,7 @@ export const SEVAS: Seva[] = [
   },
   {
     id: "s3",
-    name: "Shelter Support",
+    name: "Feeding a Cow",
     desc: "Contribute towards the maintenance and infrastructure of safe, clean cow shelters.",
     amount: 1499,
     image: "/Images/DonationCardsImg/GreenFodder.png",
@@ -39,7 +39,7 @@ export const SEVAS: Seva[] = [
   },
   {
     id: "s4",
-    name: "Acid Attack Support",
+    name: "Veterinary Support",
     desc: "Specialized, long-term veterinary care, physiotherapy, and nourishment for victims.",
     amount: 2499,
     image: "/Images/DonationCardsImg/MedicalTreat.png",

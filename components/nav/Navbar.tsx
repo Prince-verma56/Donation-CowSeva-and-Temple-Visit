@@ -11,6 +11,7 @@ import {
 import { Menu, X, HeartHandshake, Info, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 // UTILS
 const cn = (...classes: (string | boolean | undefined | null)[]) =>
@@ -82,7 +83,6 @@ export const Navbar: React.FC = () => {
   const CTA_CLASSES =
     "bg-gradient-to-r from-[#C9B172] to-[#A0884A] hover:from-[#D8BF80] hover:to-[#B0985A] transition duration-300 shadow-lg text-white";
 
-  // Small helper so nested routes like /donation/xyz still mark Donation active
   const isRouteActive = (href: string) => {
     if (!pathname) return false;
     if (href === "/") return pathname === "/";
@@ -105,17 +105,78 @@ export const Navbar: React.FC = () => {
         className={cn(
           "fixed top-6 left-0 right-0 z-50 mx-auto flex max-w-[80vw] md:max-w-7xl items-center justify-between",
           "border border-[#262424]/20 bg-[#EEE5DA]/80 px-6 py-3 shadow-xl backdrop-blur-lg rounded-full",
-          "dark:bg-neutral-900/40 dark:border-neutral-700/50 transition-colors"
+          "dark:bg-neutral-900/40 dark:border-neutral-700/50 transition-colors",
+          "relative" // so the logo wrapper can use absolute if needed
         )}
       >
         {/* LOGO */}
-        <Link href="/" className="flex items-center space-x-2">
-          <div className="bg-[#262424] p-1 rounded-full">
-            <HeartHandshake size={24} className="text-[#EEE5DA]" />
+        <Link
+          href="/"
+          aria-label="Return to homepage"
+          className="flex items-center space-x-2 shrink-0"
+        >
+          {/* Wrapper controls size, navbar height is still controlled by py-3 */}
+          <div
+            className="
+              relative
+              h-10 w-10           /* base size */
+              sm:h-11 sm:w-11     /* slightly bigger on small+ */
+              md:h-12 md:w-12     /* medium screens */
+              lg:h-11 lg:w-16     /* large screens */
+
+              sm:scale-112     /* slightly bigger on small+ */
+              md:left-12     /* medium screens */
+              lg:scale-170   /* large screens */
+            "
+          >
+            {/* Image is absolutely positioned inside the fixed-size wrapper */}
+            <Image
+              src="/Images/logos/VGGS Logo 2.png"
+              alt="VGGS logo"
+              fill
+              sizes="(min-width: 1024px) 64px, (min-width: 768px) 48px, 40px"
+              className="object-contain"
+              priority
+            />
           </div>
+
           <span className="font-serif text-xl font-bold text-[#262424] hidden sm:block">
-            Gau Seva
+            {/* VGGS */}
           </span>
+
+          {/*
+            OPTIONAL: Different logo path per breakpoint
+
+            To use different logo files on different device sizes,
+            you can replace the <div> above with this <picture> block:
+
+            <picture className="
+              relative
+              h-10 w-10
+              sm:h-11 sm:w-11
+              md:h-12 md:w-12
+              lg:h-16 lg:w-16
+            ">
+              <source
+                srcSet="/Images/logos/VGGS-Logo-Desktop.png"
+                media="(min-width: 1024px)"
+              />
+              <source
+                srcSet="/Images/logos/VGGS-Logo-Tablet.png"
+                media="(min-width: 640px)"
+              />
+              <Image
+                src="/Images/logos/VGGS-Logo-Mobile.png"
+                alt="VGGS logo"
+                fill
+                sizes="(min-width: 1024px) 64px, (min-width: 640px) 48px, 40px"
+                className="object-contain"
+                priority
+              />
+            </picture>
+
+            Just change the file paths above to the logo variants you want.
+          */}
         </Link>
 
         {/* DESKTOP NAV */}
@@ -135,7 +196,6 @@ export const Navbar: React.FC = () => {
                 )}
                 style={{ zIndex: 1 }}
               >
-                {/* Sliding pill behind active item */}
                 {active && (
                   <motion.div
                     layoutId="navActivePill"
@@ -207,7 +267,11 @@ export const Navbar: React.FC = () => {
               })}
 
               <div className="pt-2 border-t border-[#262424]/20 mt-2">
-                <Link href="/donation" className="w-full" onClick={() => setOpen(false)}>
+                <Link
+                  href="/donation"
+                  className="w-full"
+                  onClick={() => setOpen(false)}
+                >
                   <Button className={`${CTA_CLASSES} w-full mt-1`}>
                     Donate Now
                   </Button>
