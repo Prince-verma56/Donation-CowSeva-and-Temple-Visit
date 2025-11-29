@@ -78,7 +78,7 @@ export function PreloaderComponent() {
       {/* Video */}
       <video
         ref={videoRef}
-        src="/videos/Preloader.mp4"
+        src="/videos/Logo Animation of VGS.mp4"
         muted
         playsInline
         className="w-full h-full object-cover"

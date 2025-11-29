@@ -133,10 +133,10 @@ export function DonationCardsSection() {
               alt="Subtle traditional Indian pattern background for donation section"
               fill
               quality={80}
-              className="object-cover opacity-70"
+              className="object-cover opacity-90"
             />
           </div>
-          <div className="absolute inset-0  backdrop-blur-[1px] bg-[#f8f9ed]" />
+          <div className="absolute inset-0  backdrop-blur-[1px] bg-[#]" />
         </div>
 
         <div className="max-w-7xl mx-auto relative z-20 ">

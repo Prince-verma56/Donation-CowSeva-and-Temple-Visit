@@ -13,7 +13,7 @@ interface DonationCardProps {
 
 export default function DonationCard({ item, onDonate }: DonationCardProps) {
   return (
-    <div className="rounded-lg border border-slate-200 overflow-hidden shadow hover:shadow-md transition-shadow">
+    <div className="rounded-lg border border-slate-200 overflow-hidden shadow hover:shadow-md transition-shadow ">
       <div className="relative w-full h-40 bg-slate-100">
         <Image
           src={item.image}
