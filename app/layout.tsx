@@ -7,6 +7,7 @@ import { PreloaderComponent } from "@/components/preloader/PreloaderComponent";
 import { PreloaderProvider } from "@/hooks/usePreloader";
 import { LoadingOverlay } from "@/components/overlays/LoadingOverlay";
 import { LoadingOverlayProvider } from "@/hooks/useLoadingOverlay";
+import { ScrollReset } from "@/components/ScrollReset";
 
 export const metadata = {
   title: "CowSeva",
@@ -14,9 +15,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#fefae0] text-slate-900">
+      <body className="min-h-screen bg-background text-slate-900" suppressHydrationWarning={true}>
+        <ScrollReset />
         <PreloaderComponent />
         <LoadingOverlayProvider>
           <LoadingOverlay isLoading={false} />
@@ -26,9 +29,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </nav>
             <LenisProvider>
               <main className="mx-auto">{children}</main>
-              <footer className="w-full border-t mt-12 py-6 text-center text-sm text-slate-500">
+              {/* <footer className="w-full border-t mt-12 py-6 text-center text-sm text-slate-500">
                 © {new Date().getFullYear()} CowSeva
-              </footer>
+              </footer> */}
             </LenisProvider>
           </PreloaderProvider>
         </LoadingOverlayProvider>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, cubicBezier } from 'framer-motion';
 import { usePreloader } from '@/hooks/usePreloader';
 
 interface StatCardProps {
@@ -46,7 +46,7 @@ export function SmallStatsCard({ icon, label, value, suffix, index }: StatCardPr
       className="w-full sm:w-48 sm:h-48 lg:w-56 lg:h-56 backdrop-blur-lg bg-linear-to-br from-white/15 to-white/5 border border-white/30 hover:border-white/50 rounded-3xl p-6 sm:p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 flex flex-col items-center justify-center text-center group"
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
       animate={isPreloaderComplete ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.8, y: 20 }}
-      transition={{ duration: 0.6, delay: 0.5 + index * 0.2, ease: "easeOut" }}
+      transition={{ duration: 0.6, delay: 0.5 + index * 0.2, ease: cubicBezier(0.17, 0.55, 0.55, 1) }}
       whileHover={{ y: -12, scale: 1.05, boxShadow: '0 30px 60px rgba(255, 165, 0, 0.4)' }}
     >
       {/* Icon Container */}
@@ -75,7 +75,7 @@ export function SmallStatsCard({ icon, label, value, suffix, index }: StatCardPr
         className="mt-4 sm:mt-6 h-1.5 w-12 rounded-full bg-linear-to-r from-orange-300 via-yellow-400 to-amber-600 shadow-lg"
         initial={{ scaleX: 0 }}
         animate={isPreloaderComplete ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{ delay: 0.7 + index * 0.15, duration: 0.7, ease: "easeOut" }}
+        transition={{ delay: 0.7 + index * 0.15, duration: 0.7, ease: cubicBezier(0.17, 0.55, 0.55, 1) }}
       />
     </motion.div>
   );

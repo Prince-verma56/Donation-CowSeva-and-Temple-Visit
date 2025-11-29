@@ -3,13 +3,14 @@
 import React, { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
+import type { Transition, Variants } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Heart } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { SEVAS } from "@/lib/sevas";
 
@@ -19,32 +20,30 @@ if (typeof window !== "undefined") {
 }
 
 const SECTION_BACKGROUND_IMAGE_PATH = "/Images/Backgrounds/PastelBg.png";
-const DEFAULT_PAGE_BACKGROUND_COLOR =
-  "bg-cyan-100 bg-linear-to-br from-cyan-50 via-sky-50 to-teal-50";
+const DEFAULT_PAGE_BACKGROUND_COLOR ="bg-gradient-to-b from-cyan-50 to-teal-100 Backdrop-blur-[1px]"
+  // "bg-cyan-100 bg-linear-to-br from-cyan-50 via-sky-50 to-teal-50 ";
 
 // Framer Motion variants
-const cardContainerVariants = {
+const cardContainerVariants: Variants = {
   hidden: { transition: { staggerChildren: 0.1 } },
   visible: {
     transition: { staggerChildren: 0.08 },
   },
 };
 
-const cardItemVariants = {
+const springTransition: Transition = { type: "spring", stiffness: 80, damping: 15 };
+
+const cardItemVariants: Variants = {
   hidden: { opacity: 0, y: 50, scale: 0.95 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 80,
-      damping: 15,
-    },
+    transition: springTransition,
   },
 };
 
-const headerVariants = {
+const headerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -56,7 +55,7 @@ const headerVariants = {
   },
 };
 
-const headerChildVariants = {
+const headerChildVariants: Variants = {
   hidden: { opacity: 0, y: 30, scale: 0.98 },
   visible: {
     opacity: 1,
@@ -64,19 +63,19 @@ const headerChildVariants = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: [0.17, 0.55, 0.55, 1],
+      ease: cubicBezier(0.17, 0.55, 0.55, 1),
     },
   },
 };
 
-const contentChildVariants = {
+const contentChildVariants: Variants = {
   hidden: { opacity: 0, x: -10 },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: cubicBezier(0.17, 0.55, 0.55, 1),
     },
   },
 };
@@ -122,7 +121,9 @@ export function DonationCardsSection() {
         ref={sectionRef}
         id="seva-donation-options"
         aria-labelledby="seva-heading"
-        className="relative shadow-[0_4px_10px_rgb(0,0,0,0.2)] z-10 py-24 px-6 sm:px-12 lg:px-16 overflow-hidden rounded-3xl shadow-xl"
+        className="relative
+        shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]
+            z-10 py-24 px-6 sm:px-12 lg:px-16 overflow-hidden rounded-3xl "
       >
         {/* Background */}
         <div ref={bgRef} className="absolute inset-0 z-0">
@@ -135,10 +136,10 @@ export function DonationCardsSection() {
               className="object-cover opacity-70"
             />
           </div>
-          <div className="absolute inset-0 bg-white/80 backdrop-blur-[1px]" />
+          <div className="absolute inset-0  backdrop-blur-[1px] bg-[#f8f9ed]" />
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-20">
+        <div className="max-w-7xl mx-auto relative z-20 ">
           {/* Header */}
           <motion.div
             className="text-center mb-16"
@@ -147,25 +148,26 @@ export function DonationCardsSection() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
-            <motion.p
+            <motion.div
               variants={headerChildVariants}
               className="text-sm font-semibold uppercase text-orange-600 mb-2 tracking-widest"
             >
               <div className="flex items-center justify-center my-16 max-w-7xl mx-auto">
-                <hr className="w-1/3 h-[1.5px] bg-gray-300 opacity-60" />
-                <Badge className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 mx-4 text-sm font-semibold uppercase tracking-widest shadow-lg rounded-full whitespace-nowrap">
-                  Support Our Mission
+                <hr className="w-1/3 h-[2.5px] bg-gray-400 opacity-60" />
+                <Badge className="bg-gradient-to-tr from-cyan-400 to-blue-500  text-white px-6 py-2 mx-4 text-sm font-semibold uppercase tracking-widest shadow-lg rounded-full whitespace-nowrap">
+                 <Star className="w-6 h-6 mr-2 fill-yellow-400 text-yellow-400" />
+                 Support Our Mission
                 </Badge>
-                <hr className="w-1/3 h-[1.5px] bg-gray-300 opacity-60" />
+                <hr className="w-1/3 h-[2.5px] bg-gray-400 opacity-60 shadow-md" />
               </div>
-            </motion.p>
+            </motion.div>
             <motion.h2
               variants={headerChildVariants}
               id="seva-heading"
-              className="lg:text-8xl sm:text-6xl font-bold text-slate-900 mb-4"
+              className="lg:text-8xl sm:text-6xl  font-bold text-slate-900 mb-4"
               style={{ fontFamily: "Qasira" }}
             >
-              Choose a Seva
+              Choose a <span className="text-[#19b8e9]">Seva</span>
             </motion.h2>
             <motion.p
               variants={headerChildVariants}
@@ -178,7 +180,7 @@ export function DonationCardsSection() {
 
           {/* Cards grid */}
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-stretch"
             variants={cardContainerVariants}
             initial="hidden"
             whileInView="visible"
@@ -190,18 +192,17 @@ export function DonationCardsSection() {
                 variants={cardItemVariants}
                 className="h-full flex justify-center"
               >
-                <Card className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group flex flex-col w-full max-w-[320px] lg:max-w-full">
+                <Card className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group flex flex-col w-full h-full">
                   {/* Image */}
                   <div className="relative p-4 pb-0">
-                    <div className="relative w-full h-56 bg-white flex items-center justify-center rounded-2xl overflow-hidden">
+                    <div className="relative w-full aspect-square sm:aspect-[4/3] bg-white rounded-2xl overflow-hidden">
                       <Image
                         src={seva.image}
                         alt={seva.name}
-                        width={280}
-                        height={280}
+                        fill
                         className="object-contain"
                         priority={index < 4}
-                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
                     </div>
                     <div className="absolute top-7 left-7">
@@ -236,7 +237,7 @@ export function DonationCardsSection() {
                     <motion.h3
                       variants={contentChildVariants}
                       className="text-xl font-bold text-slate-900 mb-2 line-clamp-2"
-                      style={{ fontFamily: "Montserrat" }}
+                      // style={{ fontFamily: "Montserrat" }}
                     >
                       {seva.name}
                     </motion.h3>
@@ -244,7 +245,7 @@ export function DonationCardsSection() {
                     <motion.p
                       variants={contentChildVariants}
                       className="text-sm text-slate-600 mb-4 line-clamp-3 flex-grow"
-                      style={{ fontFamily: "Montserrat" }}
+                      // style={{ fontFamily: "Montserrat" }}
                     >
                       {seva.desc}
                     </motion.p>
@@ -255,7 +256,7 @@ export function DonationCardsSection() {
                     >
                       <p
                         className="text-2xl font-extrabold text-slate-900"
-                        style={{ fontFamily: "Montserrat" }}
+                        // style={{ fontFamily: "Montserrat" }}
                       >
                         ₹{seva.amount.toLocaleString("en-IN")}
                       </p>
@@ -267,8 +268,8 @@ export function DonationCardsSection() {
                     >
                       <Link href={`/donation/${seva.slug}`} className="w-full">
                         <Button
-                          className="w-full bg-slate-900 hover:bg-slate-700 text-white rounded-full py-3 text-base font-semibold transition-all transform hover:scale-[1.01] shadow-md"
-                          style={{ fontFamily: "Montserrat" }}
+                          className="w-full cursor-pointer bg-slate-900 hover:bg-slate-700 text-white rounded-full py-3 text-base font-semibold transition-all transform hover:scale-[1.01] shadow-md"
+                          // style={{ fontFamily: "Montserrat" }}
                         >
                           Donate Now
                         </Button>

@@ -1,34 +1,66 @@
-'use client';
+"use client";
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import type { Transition } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { HeroVideoDialog } from '@/components/ui/hero-video-dialog';
-import { usePreloader } from '@/hooks/usePreloader';
 
+// Define the core duration and spring properties for a professional feel
+const springTransition: Transition = {
+  type: "spring",
+  stiffness: 70,
+  damping: 10,
+  mass: 0.8
+};
+
+// Main container variants (Fast stagger for initial text elements)
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.05, // Very fast stagger for text
+      delayChildren: 0.1,    // Minimal initial delay
     },
   },
 };
 
+// Individual item variants (Smooth rise and slight scale-in for TEXT)
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { 
+    opacity: 0, 
+    y: 20, // Reduced lift for faster feel
+    scale: 0.99 
+  },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 },
+    scale: 1,
+    transition: springTransition,
   },
 };
 
-export function VideoPlayerSection() {
-  const { isPreloaderComplete } = usePreloader();
+// **NEW VARIANT for the Video Section**
+const videoItemVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 50, // More pronounced lift
+    scale: 0.95 
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      ...springTransition,
+      delay: 0.3, // **CRITICAL: Adds a delay after the text finishes its stagger**
+    },
+  },
+};
 
+
+export function VideoPlayerSection() {
   return (
     <section className="relative w-full py-16 sm:py-24 lg:py-32 px-6 sm:px-10 lg:px-16 bg-linear-to-br from-slate-50 via-sky-50 to-teal-50 border-b-2 rounded-4xl">
       {/* Background decorative elements */}
@@ -42,9 +74,10 @@ export function VideoPlayerSection() {
           className="space-y-6 sm:space-y-8"
           variants={containerVariants}
           initial="hidden"
-          animate={isPreloaderComplete ? "visible" : "hidden"}
+          whileInView="visible" 
+          viewport={{ once: true, amount: 0.5 }}
         >
-          {/* Badge */}
+          {/* Badge (Text element, uses itemVariants) */}
           <motion.div className="flex justify-center" variants={itemVariants}>
             <Badge 
               variant="outline"
@@ -54,7 +87,7 @@ export function VideoPlayerSection() {
             </Badge>
           </motion.div>
 
-          {/* Heading */}
+          {/* Heading (Text element, uses itemVariants) */}
           <motion.div className="text-center space-y-4" variants={itemVariants}>
             <h2
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight"
@@ -67,7 +100,7 @@ export function VideoPlayerSection() {
             </h2>
           </motion.div>
 
-          {/* Paragraph */}
+          {/* Paragraph (Text element, uses itemVariants) */}
           <motion.p
             className="text-center text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"
             style={{ fontFamily: 'Montserrat' }}
@@ -76,10 +109,10 @@ export function VideoPlayerSection() {
             Discover the touching stories of cows saved from illness and injury. From their first moment of care to their full recovery, see how your donations transform lives and provide hope to those in need.
           </motion.p>
 
-          {/* Video Player Card */}
+          {/* Video Player Card (MAIN VISUAL, **USES videoItemVariants**) */}
           <motion.div
             className="relative mt-10 sm:mt-14"
-            variants={itemVariants}
+            variants={videoItemVariants} // **Applied the delayed variant here**
           >
             <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
               {/* Card background with gradient border effect */}
@@ -101,7 +134,7 @@ export function VideoPlayerSection() {
             </div>
           </motion.div>
 
-          {/* Additional info below video */}
+          {/* Additional info below video (Text element, uses itemVariants) */}
           <motion.div
             className="text-center mt-8 sm:mt-12"
             variants={itemVariants}
@@ -113,7 +146,6 @@ export function VideoPlayerSection() {
             </p>
           </motion.div>
         </motion.div>
-        
       </div>
     </section>
   );

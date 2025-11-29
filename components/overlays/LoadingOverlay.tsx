@@ -15,11 +15,17 @@ export function LoadingOverlay({ isLoading = false }: LoadingOverlayProps) {
 
   useEffect(() => {
     if (isLoading) {
-      // Use a microtask to avoid cascading renders
       queueMicrotask(() => {
         setIsMounted(true);
         setIsVisible(true);
       });
+    } else {
+      queueMicrotask(() => {
+        setIsVisible(false);
+      });
+      // Unmount after the exit animation completes
+      const t = setTimeout(() => setIsMounted(false), 300);
+      return () => clearTimeout(t);
     }
   }, [isLoading]);
 
@@ -45,6 +51,23 @@ export function LoadingOverlay({ isLoading = false }: LoadingOverlayProps) {
 
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
+
+  // Lock body scroll while overlay is visible; restore on hide/unmount
+  useEffect(() => {
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
+    if (isVisible) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = prevBody || 'auto';
+      document.documentElement.style.overflow = prevHtml || 'auto';
+    }
+    return () => {
+      document.body.style.overflow = prevBody || 'auto';
+      document.documentElement.style.overflow = prevHtml || 'auto';
+    };
+  }, [isVisible]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -74,6 +97,8 @@ export function LoadingOverlay({ isLoading = false }: LoadingOverlayProps) {
         ease: 'easeInOut',
       }}
       className="fixed inset-0 z-50 w-full h-screen flex items-center justify-center bg-white overflow-hidden"
+      style={{ pointerEvents: isVisible ? 'auto' : 'none' }}
+      aria-hidden={!isVisible}
       id="loading-overlay"
     >
       {/* Video */}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, cubicBezier } from "framer-motion";
 import { Menu, X, HeartHandshake, Info, ShieldCheck } from "lucide-react"; 
 import Link from "next/link";
 import Image from "next/image";
@@ -36,7 +36,7 @@ export const Navbar: React.FC = () => {
   const HIDE_THRESHOLD = 80; 
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const prev = scrollY.getPrevious();
+    const prev = scrollY.getPrevious() ?? 0;
     if (!open) { 
       if (latest > prev && latest > HIDE_THRESHOLD) {
         setVisible(false); 
@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
         animate={{
           y: visible ? 0 : -100,
           opacity: visible ? 1 : 0,
-          transition: { duration: 0.3, ease: "easeInOut" },
+          transition: { duration: 0.3, ease: cubicBezier(0.17, 0.55, 0.55, 1) },
         }}
         // Glassmorphism Base: Light Almond BG with blur
         className={cn(
