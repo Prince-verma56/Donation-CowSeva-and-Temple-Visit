@@ -281,7 +281,7 @@ export const ShlokaSection: React.FC<{ eager?: boolean }> = ({ eager: _eager }) 
                   <Image
                     src={
                       active.image ??
-                      "/Images/shloka/shloka-featured-fallback.jpg"
+                      "/Images/ShlokasImgs/Shloka1.png"
                     }
                     alt="Decorative illustration for the featured shloka on charity"
                     fill

@@ -3,7 +3,8 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
 import type { Transition, Variants } from 'framer-motion';
 import { ShieldCheck, Heart, Eye, ChevronDown, CheckCircle2, ArrowRight, Star, FileCheck2, Ambulance, Leaf } from 'lucide-react';
-import Image from 'next/image'; 
+// Replaced 'next/image' with standard 'img' for environment compatibility
+// import Image from 'next/image'; 
 // Removed GSAP imports for environment compatibility
 // import gsap from 'gsap';
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -248,11 +249,10 @@ export function FeaturesSection() {
             {/* Image Overlay Gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent z-10" />
             
-            <Image
-              src="/Images/DonationCardsImg/WhyClear.png"
+            {/* Replaced Next/Image with standard img tag */}
+            <img
+              src="/Images/DonationCardsImg/WhyClear.png" 
               alt="Cow Seva Care and Transparency"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
             />
 

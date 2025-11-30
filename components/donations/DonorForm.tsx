@@ -46,13 +46,7 @@ declare global {
       name: string;
       description: string;
       order_id?: string;
-      handler: (
-        response: {
-          razorpay_order_id: string;
-          razorpay_payment_id: string;
-          razorpay_signature: string;
-        }
-      ) => void;
+      handler: (response: { razorpay_payment_id: string }) => void;
       prefill: { name: string; email: string; contact: string };
       notes?: Record<string, string>;
       theme?: { color: string };
@@ -154,26 +148,18 @@ export function DonorForm({ seva, onLoadingChange }: DonorFormProps) {
         name: "CowSeva",
         description: seva.name,
         order_id: order.id,
-        handler: async (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
+        handler: async (response: { razorpay_payment_id: string }) => {
           try {
-            const verifyRes = await fetch("/api/razorpay/verify", {
+            await fetch("/api/donations/mark-paid", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 donationId,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
+                razorpayPaymentId: response.razorpay_payment_id,
               }),
             });
-            const verifyData = await verifyRes.json();
-            if (verifyRes.ok && verifyData.success) {
-              toast.success("Donation successful, thank you!");
-              router.push("/thank-you");
-            } else {
-              toast.error("Payment verification failed, please contact support or try again.");
-              // TODO: Implement /payment-failed page and redirect here
-            }
+            toast.success("Donation successful, thank you!");
+            router.push("/thank-you");
           } catch (e) {
             toast.error("Payment update failed");
           } finally {
