@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
   ];
 
   const CTA_CLASSES =
-    "bg-gradient-to-r from-[#C9B172] to-[#A0884A] hover:from-[#D8BF80] hover:to-[#B0985A] transition duration-300 shadow-lg text-white";
+    "bg-gradient-to-r from-[#C9B172] to-[#A0884A] hover:from-[#D8BF80] hover:to-[#B0985A] transition duration-300 shadow-lg text-white cursor-pointer";
 
   const isRouteActive = (href: string) => {
     if (!pathname) return false;
@@ -217,8 +217,8 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* CTA BUTTON */}
-        <Link href="/donation" className="hidden md:block">
-          <Button className={CTA_CLASSES}>Donate</Button>
+        <Link href="/online-parikrama" className="hidden md:block ">
+          <Button className={CTA_CLASSES}> Parikrama</Button>
         </Link>
 
         {/* MOBILE TOGGLE */}
@@ -268,12 +268,12 @@ export const Navbar: React.FC = () => {
 
               <div className="pt-2 border-t border-[#262424]/20 mt-2">
                 <Link
-                  href="/donation"
+                  href="/online-parikrama"
                   className="w-full"
                   onClick={() => setOpen(false)}
                 >
                   <Button className={`${CTA_CLASSES} w-full mt-1`}>
-                    Donate Now
+                    Online Parikrama
                   </Button>
                 </Link>
               </div>

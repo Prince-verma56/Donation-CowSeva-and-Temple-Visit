@@ -1,12 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabaseServer";
 import type { DonationRecordStatus } from "@/types/donations";
-// TODO: Tighten RLS policies: restrict inserts/updates to server via service role; clients use row-scoped reads// TODO: Tighten RLS policies: restrict inserts/updates to server via service role; clients use row-scoped reads
+// TODO: Tighten RLS policies: restrict inserts/updates to server via service role; clients use row-scoped reads
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    console.log("[API] /api/donations/create payload:", body);
+
+    if (!body.seva_slug || !body.amount || !body.full_name || !body.email || !body.phone) {
+      console.error("[API] Missing required fields in payload");
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
     const supabaseAdmin = getSupabaseAdmin();
     if (!supabaseAdmin) {
+      console.error("[API] Supabase Admin not configured. Check NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.");
       return NextResponse.json({ error: "Supabase is not configured" }, { status: 500 });
     }
 
@@ -31,11 +39,13 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (error) {
+      console.error("[API] Supabase insert error:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
     return NextResponse.json({ donationId: data.id });
-  } catch {
+  } catch (err) {
+    console.error("[API] Unexpected error:", err);
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 }

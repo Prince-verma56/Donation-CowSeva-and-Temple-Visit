@@ -251,7 +251,7 @@ export function DonorForm({ seva, onLoadingChange }: DonorFormProps) {
                                 <FormLabel className="text-sm font-semibold">Phone</FormLabel>
                                 <FormControl>
                                     <Input 
-                                        placeholder="9876543210" 
+                                        placeholder="10 digit number" 
                                         {...field} 
                                         className="h-10 transition duration-150 hover:border-amber-400 focus-visible:ring-amber-500"
                                     />

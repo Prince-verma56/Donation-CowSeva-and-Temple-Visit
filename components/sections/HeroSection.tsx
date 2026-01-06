@@ -57,7 +57,7 @@ export function HeroSection() {
     const { isPreloaderComplete } = usePreloader();
 
     return (
-        <section className="relative w-full min-h-screen overflow-hidden rounded-b-4xl">
+        <section className="relative w-full min-h-screen overflow-hidden rounded-b-4xl ">
 
             {/* Background Image (KEPT UNCHANGED) */}
             <div className="absolute inset-0 z-0 w-full h-full ">
@@ -83,7 +83,7 @@ export function HeroSection() {
             </div>
 
             {/* Hero Content Container */}
-            <div className="relative z-20 w-full min-h-screen flex flex-col justify-center pt-10 pb-6 sm:p-10 lg:p-16">
+            <div className="relative z-20 w-full min-h-screen flex flex-col justify-center pt-10 pb-6 sm:p-10 lg:p-16 lg:mt-10 md:mt-20 sm:mt-30">
 
                 {/* --- DESKTOP VIEW (Visible on sm and up) --- (KEPT UNCHANGED) */}
                 <div className="w-full max-w-7xl mx-auto hidden sm:block">

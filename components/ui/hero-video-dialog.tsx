@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import { Play, XIcon } from "lucide-react"
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion } from "framer-motion" // Ensure this is framer-motion
 
+// Assuming cn is correctly imported from your utilities
 import { cn } from "@/lib/utils"
 
 type AnimationStyle =
@@ -76,6 +77,11 @@ export function HeroVideoDialog({
 }: HeroVideoProps) {
   const [isVideoOpen, setIsVideoOpen] = useState(false)
   const selectedAnimation = animationVariants[animationStyle]
+  
+  // Logic to determine if the source is a local file (e.g., MP4)
+  const isLocalVideo = videoSrc.endsWith(".mp4") || videoSrc.endsWith(".webm") || videoSrc.endsWith(".ogg")
+  
+  const isExternal = !isLocalVideo
 
   return (
     <div className={cn("relative", className)}>
@@ -128,18 +134,43 @@ export function HeroVideoDialog({
               {...selectedAnimation}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className="relative mx-4 aspect-video w-full max-w-4xl md:mx-0"
+              // Prevent closing the dialog when clicking INSIDE the video container
+              onClick={(e) => e.stopPropagation()} 
             >
-              <motion.button className="absolute -top-16 right-0 rounded-full bg-neutral-900/50 p-2 text-xl text-white ring-1 backdrop-blur-md dark:bg-neutral-100/50 dark:text-black">
+              <motion.button 
+                onClick={() => setIsVideoOpen(false)}
+                className="absolute -top-16 right-0 z-10 rounded-full bg-neutral-900/50 p-2 text-xl text-white ring-1 backdrop-blur-md dark:bg-neutral-100/50 dark:text-black"
+              >
                 <XIcon className="size-5" />
               </motion.button>
               <div className="relative isolate z-[1] size-full overflow-hidden rounded-2xl border-2 border-white">
-                <iframe
-                  src={videoSrc}
-                  title="Hero Video player"
-                  className="size-full rounded-2xl"
-                  allowFullScreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                ></iframe>
+                {isExternal ? (
+                  <iframe
+                    src={videoSrc}
+                    title="External Video player"
+                    className="size-full rounded-2xl"
+                    allowFullScreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  ></iframe>
+                ) : (
+                  <video
+                    src={videoSrc}
+                    title="Local Video Player"
+                    className="size-full rounded-2xl"
+                    autoPlay
+                    controls
+                    playsInline
+                    muted
+                    preload="metadata"
+                    poster={thumbnailSrc}
+                    onLoadedData={(e) => {
+                      const v = e.currentTarget as HTMLVideoElement
+                      v.play().catch(() => {})
+                    }}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                )}
               </div>
             </motion.div>
           </motion.div>

@@ -120,7 +120,7 @@ export function ServicesSection() {
                             </Button>
                         </Link> */}
 
-                        <Link href="/know-about-us" className="w-full sm:w-auto">
+                        <Link href="/about" className="w-full sm:w-auto">
                             <InteractiveHoverButton
                                 className="h-12 px-8 bg-amber-600 hover:bg-amber-700 text-white shadow-lg rounded-full font-semibold transition-all group uppercase tracking-wide backdrop-blur-sm"
                             >

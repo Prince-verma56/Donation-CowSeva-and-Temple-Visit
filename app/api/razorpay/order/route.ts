@@ -41,7 +41,8 @@ export async function POST(req: NextRequest) {
         await supabaseAdmin
           .from("donations")
           .update({ razorpay_order_id: order.id })
-          .eq("id", body.donationId);
+          .eq("id", body.donationId); 
+          
       }
     }
 
