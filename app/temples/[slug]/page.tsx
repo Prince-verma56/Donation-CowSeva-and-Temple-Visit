@@ -57,6 +57,9 @@ export default function TempleBookingPage() {
         return;
       }
 
+
+
+
       toast.success("Booking submitted");
       router.push(`/temples/${temple.slug}/booking-confirmed`);
     } catch {

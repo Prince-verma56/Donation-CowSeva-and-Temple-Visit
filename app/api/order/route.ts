@@ -55,6 +55,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: description }, { status: 500 });
   }
 }
-// TODO: Add webhook endpoint: verify signature (X-Razorpay-Signature)
-// TODO: Persist successful transactions to database with donor details
-// TODO: Build admin dashboard to view and reconcile donations
+
+
+const config = {
+  runtime: "edge",
+};
+
